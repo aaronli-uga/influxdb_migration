@@ -124,7 +124,7 @@ def main():
 if __name__ == "__main__":
     args = get_arguments()
     # The ideal batch size for InfluxDB is 5,000-10,000 points.
-    write_batch_size = 5000
+    write_batch_size = 1000
     sClient = InfluxDBClient(host=args.sURL, 
                             port=8086, 
                             username=args.sUser, 
