@@ -6,7 +6,7 @@ add argument '-h' for help
 Usage:
 
 ```
-influxDB_copy.py sURL sDB dURL dDB startTime endTime
+influxDB_copy.py sURL sDB sUser sPasswd dURL dDB dUser dPasswd startTime endTime
 ```
 
 positional arguments:
