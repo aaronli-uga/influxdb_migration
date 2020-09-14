@@ -38,19 +38,23 @@ def get_arguments():
                         help='password of the destination database.')
     parser.add_argument('startTime',
                         type=str,
-                        help='start time. format: Year-Mon-Day-Hour-Min-Sec')
+                        help='start time. format: Year-Mon-DayTHour:Min:Sec')
     parser.add_argument('endTime',
                         type=str,
-                        help='end time. format: Year-Mon-Day-Hour-Min-Sec')
+                        help='end time. format: Year-Mon-DayTHour:Min:Sec')
     
     return parser.parse_args()
 
 
 def datetime_convert(startDate, endDate):
-    year, mon, day, hour, min, sec = startDate.split('-')
+    leftT, rightT = startDate.split('T')
+    year, mon, day = leftT.split('-')
+    hour, min, sec = rightT.split(':')
     sDate = datetime(int(year), int(mon), int(day), int(hour), int(min), int(sec))
 
-    year, mon, day, hour, min, sec = endDate.split('-')
+    leftT, rightT = endDate.split('T')
+    year, mon, day = leftT.split('-')
+    hour, min, sec = rightT.split(':')
     eDate = datetime(int(year), int(mon), int(day), int(hour), int(min), int(sec))
 
     return sDate, eDate

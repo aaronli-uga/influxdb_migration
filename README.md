@@ -7,6 +7,9 @@ Usage:
 
 ```
 influxDB_copy.py sURL sDB sUser sPasswd dURL dDB dUser dPasswd startTime endTime
+
+For example:
+python influxDB_copy.py "localhost" "sourceDB" "user1" "password1" "remote.com" "destinationDB" "user2" "password2" "2020-06-04T15:40:00" "2020-06-05T15:40:00"
 ```
 
 positional arguments:
