@@ -74,7 +74,7 @@ def data_migration(startTime, endTime, args):
                     tag[key] = value
                 else:
                     field[key] = value
-                
+                    
                 data.append(
                     {
                         "measurement": sname,
@@ -83,7 +83,6 @@ def data_migration(startTime, endTime, args):
                         "time": point_time
                     }
                 )
-        
         dClient.write_points(data, database = args.dDB, time_precision = 'ms', batch_size = write_batch_size, protocol = 'json')
     return None
     
@@ -100,9 +99,9 @@ def main():
             rightWindow = eTime
 
         data_migration(leftWindow, rightWindow, args)
-
         if (eTime - leftWindow).seconds < 5 * 30:
             break
+        leftWindow = rightWindow
     
     client_write_end_time = time.perf_counter()
     print("Migration completed! Data write time: {time}s".format(time = client_write_end_time - client_write_start_time))
