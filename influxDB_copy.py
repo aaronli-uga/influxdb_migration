@@ -85,12 +85,8 @@ def data_migration(startTime, endTime, args):
                 )
         
         dClient.write_points(data, database = args.dDB, time_precision = 'ms', batch_size = write_batch_size, protocol = 'json')
-
-
     return None
     
-
-
 
 def main():
     sTime, eTime = datetime_convert(args.startTime, args.endTime)
@@ -109,9 +105,7 @@ def main():
             break
     
     client_write_end_time = time.perf_counter()
-
     print("Migration completed! Data write time: {time}s".format(time = client_write_end_time - client_write_start_time))
-
     return None
 
 
@@ -120,7 +114,6 @@ if __name__ == "__main__":
     args = get_arguments()
     # The ideal batch size for InfluxDB is 5,000-10,000 points.
     write_batch_size = 5000
-
     sClient = InfluxDBClient(host=args.sURL, 
                             port=8086, 
                             username='root', 
@@ -133,5 +126,4 @@ if __name__ == "__main__":
                             password='root', 
                             database=args.dDB,
                             ssl=True)
-
     main()
