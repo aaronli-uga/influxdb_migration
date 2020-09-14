@@ -10,7 +10,6 @@ from datetime import datetime
 
 def get_arguments():
     parser = argparse.ArgumentParser(description='Migrate data from one influxDB database to another.')
-    
     parser.add_argument('sURL',
                         type=str,
                         help='the URL of source database.')
@@ -57,7 +56,7 @@ def data_migration(startTime, endTime, args):
     for i in range(len(points)):
         read = points[i]['key']
         sname = read.split(',')[0]
-        copyQuery = 'SELECT * FROM '+ sname+' WHERE time > '+start_str+' and time < '+end_str
+        copyQuery = 'SELECT * FROM ' + sname + ' WHERE time > ' + start_str + ' and time < ' + end_str
         result = sClient.query(copyQuery)
         values = list(result.get_points())
 
@@ -67,14 +66,14 @@ def data_migration(startTime, endTime, args):
             field = {}
             for key, value in point.items():
                 if key == 'time':
-                    if len(value)<21:
+                    if len(value) < 21:
                         point_time = datetime.strptime(value, '%Y-%m-%dT%H:%M:%SZ')
                     else:
                         point_time = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ')
                 elif type(value) == type('a'):
-                    tag[key]=value
+                    tag[key] = value
                 else:
-                    field[key]=value
+                    field[key] = value
                 
                 data.append(
                     {
@@ -85,7 +84,7 @@ def data_migration(startTime, endTime, args):
                     }
                 )
         
-        dClient.write_points(data, database=args.dDB, time_precision='ms', batch_size = write_batch_size, protocol='json')
+        dClient.write_points(data, database = args.dDB, time_precision = 'ms', batch_size = write_batch_size, protocol = 'json')
 
 
     return None
@@ -111,7 +110,7 @@ def main():
     
     client_write_end_time = time.perf_counter()
 
-    print("Migration completed! Data write time: {time}s".format(time=client_write_end_time - client_write_start_time))
+    print("Migration completed! Data write time: {time}s".format(time = client_write_end_time - client_write_start_time))
 
     return None
 
