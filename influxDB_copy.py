@@ -74,7 +74,7 @@ def data_migration(startTime, endTime, args):
                     tag[key] = value
                 else:
                     field[key] = value
-                    
+
                 data.append(
                     {
                         "measurement": sname,
@@ -93,13 +93,13 @@ def main():
 
     client_write_start_time = time.perf_counter()
     while True:
-        if (eTime - leftWindow).seconds > 5 * 30:
+        if (eTime - leftWindow).seconds > 5 * 60:
             rightWindow = leftWindow + datetime.timedelta(minutes=5)
         else:
             rightWindow = eTime
 
         data_migration(leftWindow, rightWindow, args)
-        if (eTime - leftWindow).seconds < 5 * 30:
+        if (eTime - leftWindow).seconds < 5 * 60:
             break
         leftWindow = rightWindow
     
