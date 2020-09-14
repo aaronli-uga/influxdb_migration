@@ -16,12 +16,24 @@ def get_arguments():
     parser.add_argument('sDB',
                         type=str,
                         help='name of the source database.')
+    parser.add_argument('sUser',
+                        type=str,
+                        help='username of the source database.')
+    parser.add_argument('sPasswd',
+                        type=str,
+                        help='password of the source database.')
     parser.add_argument('dURL',
                         type=str,
                         help='the URL of destination database.')
     parser.add_argument('dDB',
                         type=str,
                         help='name of the destination database.')
+    parser.add_argument('dUser',
+                        type=str,
+                        help='username of the destination database.')
+    parser.add_argument('dPasswd',
+                        type=str,
+                        help='password of the destination database.')
     parser.add_argument('startTime',
                         type=str,
                         help='start time. format: Year-Mon-Day-Hour-Min-Sec')
@@ -115,14 +127,14 @@ if __name__ == "__main__":
     write_batch_size = 5000
     sClient = InfluxDBClient(host=args.sURL, 
                             port=8086, 
-                            username='root', 
-                            password='root', 
+                            username=args.sUser, 
+                            password=args.sPasswd, 
                             database=args.sDB)
     
     dClient = InfluxDBClient(host=args.dURL, 
                             port=8086, 
-                            username='root', 
-                            password='root', 
+                            username=args.dUser, 
+                            password=args.dPasswd, 
                             database=args.dDB,
                             ssl=True)
     main()
