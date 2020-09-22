@@ -11,13 +11,15 @@ urllib3.disable_warnings()
 
 
 def get_arguments():
-    parser = argparse.ArgumentParser(description='Migrate data from one influxDB database to another.')
+    parser = argparse.ArgumentParser(description='Migrate data from one influxDB database to another. \
+                                    For example: \
+                                    python influxDB_copy.py localhost sourceDB user1 password1 remote.com destinationDB user2 password2 2020-06-04T15:40:00 2020-06-05T15:40:00 ')
     parser.add_argument('sURL',
                         type=str,
-                        help='the URL of source database.')
+                        help='the URL of source database. http://example.com')
     parser.add_argument('sDB',
                         type=str,
-                        help='name of the source database.')
+                        help='name of the source database. http://example.com')
     parser.add_argument('sUser',
                         type=str,
                         help='username of the source database.')
@@ -131,12 +133,26 @@ if __name__ == "__main__":
     args = get_arguments()
     # The ideal batch size for InfluxDB is 5,000-10,000 points.
     write_batch_size = 1000
+
+    if 'https' in args.sURL:
+        isSSL = True
+    else:
+        isSSL = False
+    args.sURL = args.sURL.split('//')[1]
+    
     sClient = InfluxDBClient(host=args.sURL, 
                             port=8086, 
                             username=args.sUser, 
                             password=args.sPasswd, 
-                            database=args.sDB)
+                            database=args.sDB,
+                            ssl=True)
     
+    if 'https' in args.dURL:
+        isSSL = True
+    else:
+        isSSL = False
+    args.dURL = args.dURL.split('//')[1]
+
     dClient = InfluxDBClient(host=args.dURL, 
                             port=8086, 
                             username=args.dUser, 
