@@ -145,7 +145,7 @@ if __name__ == "__main__":
                             username=args.sUser, 
                             password=args.sPasswd, 
                             database=args.sDB,
-                            ssl=True)
+                            ssl=isSSL)
     
     if 'https' in args.dURL:
         isSSL = True
@@ -158,5 +158,5 @@ if __name__ == "__main__":
                             username=args.dUser, 
                             password=args.dPasswd, 
                             database=args.dDB,
-                            ssl=True)
+                            ssl=isSSL)
     main()
