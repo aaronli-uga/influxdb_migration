@@ -13,9 +13,9 @@ Here is a real example:
 
 ```
 python influxDB_copy.py https://sensorweb.us shake test sensorweb https://sensorweb.us testdb test sensorweb 2020-08-07T19:22:31 2020-08-07T19:22:35
-
 ```
 open browser with user/password:guest/sensorweb_guest to see the result at grafana https://sensorweb.us:3000
+
 
 
 positional arguments:
